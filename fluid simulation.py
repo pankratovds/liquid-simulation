@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
+import pygame as pg
 
 def main():
 
@@ -11,6 +11,8 @@ def main():
 	tau                    = 0.6    # collision timescale
 	Nt                     = 4000   # number of timesteps
 	plotRealTime = True # switch on for plotting as the simulation goes along
+	pg.init()
+	screen = pg.display.set_mode((Ny,Nx)) 
 
 	# Lattice speeds / weights
 	NL = 9
@@ -24,7 +26,7 @@ def main():
 	np.random.seed(42)
 	F += 0.01*np.random.randn(Ny,Nx,NL)
 	X, Y = np.meshgrid(range(Nx), range(Ny))
-	F[:,:,3] += 2 * (1+0.2*np.cos(2*np.pi*X/Nx*4))
+	F[:,:,3] += 2*(1+0.2*np.cos(2*np.pi*X/Nx*4))
 	rho = np.sum(F,2)
 	for i in idxs:
 		F[:,:,i] *= rho0 / rho
@@ -69,12 +71,15 @@ def main():
 
 
 		# plot in real time - color 1/2 particles blue, other half red
-		if (plotRealTime and (it % 10) == 0) or (it == Nt-1):
-			plt.cla()
+		if (plotRealTime and (it % 5) == 0) or (it == Nt-1):
+			screen.fill((255, 255, 255))
 			ux[cylinder] = 0
 			uy[cylinder] = 0
 			vorticity = (np.roll(ux, -1, axis=0) - np.roll(ux, 1, axis=0)) - (np.roll(uy, -1, axis=1) - np.roll(uy, 1, axis=1))
 			vorticity[cylinder] = np.nan
+			screen.blit(pg.surfarray.make_surface(vorticity),(0,0))# отрисовка по модулю скорости и позже вязкости
+			pg.display.update()
+			'''
 			cmap = plt.cm.bwr
 			cmap.set_bad('black')
 			vorticity = np.ma.array(vorticity, mask=cylinder)
@@ -86,7 +91,7 @@ def main():
 			ax.get_xaxis().set_visible(False)
 			ax.get_yaxis().set_visible(False)
 			ax.set_aspect('equal')
-			plt.pause(0.001)
+			plt.pause(0.001)'''
 
 
 	# Save figure
