@@ -15,7 +15,6 @@ class Rect:
         self.height = 50
         
 class Text:  
-
 sc = pygame.display.set_mode((300,200))
 sc.fill((255, 255, 255))
 
@@ -28,6 +27,7 @@ text3 = f3.render('Модель: круг', 1, (180, 0, 0))
 sc.blit(text1, (10, 50))
 sc.blit(text2, (10, 50))
 sc.blit(text3, (10, 50))
+
 
 
 pygame.display.update()
