@@ -9,7 +9,7 @@ for event in pg.event.get():
     if event.type==pg.MOUSEBUTTONDOWN:
         visualize()
 class Rect:
-    default_color = "green"
+    default_color = "brown"
     def __init__(self, width, height):
         self.width = 50
         self.height = 50
