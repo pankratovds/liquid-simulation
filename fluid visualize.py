@@ -21,6 +21,8 @@ sc.fill((255, 255, 255))
 
 f1 = pygame.font.Font(None, 36)
 text1 = f1.render('Модель: квадрат', 1, (180, 0, 0))
+text2 = f2.render('Модель: треугольник', 1, (180, 0, 0))
+text3 = f3.render('Модель: круг', 1, (180, 0, 0))
 
 
 sc.blit(text1, (10, 50))
